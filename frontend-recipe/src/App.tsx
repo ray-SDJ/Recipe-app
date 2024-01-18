@@ -59,6 +59,16 @@ const App = () => {
     }
   }
 
+  const removeFavoriteRecipe = async(recipe: Recipe) => {
+    try {
+      await api.removeFavoriteRecipe(recipe);
+      const updatedRecipes = favoriteRecipes.filter((favRecipe) => recipe.id !== favRecipe.id);
+      setFavoriteRecipes(updatedRecipes);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <div className="App">
@@ -71,7 +81,7 @@ const App = () => {
           <h1 onClick={() => setSelectedTab("favorites")}> Favorites</h1>
         </div>
         {selectedTab === "search" && (
-          <>
+          <div>
             <form onSubmit={() => handleSearchSubmit}>
               <input
                 type="text"
@@ -82,16 +92,21 @@ const App = () => {
               ></input>
               <button type="submit">Submit</button>
             </form>
-            {recipes.map((recipe) => (
-              <RecipeCard
-                recipe={recipe}
-                onClick={() => setSelectedRecipe(recipe)}
-              />
-            ))}
+            {recipes.map((recipe) => {
+              const isFavorite = favoriteRecipes.some((favRecipe) => recipe.id === favRecipe.id);
+              return (
+                <RecipeCard
+                  recipe={recipe}
+                  onClick={() => setSelectedRecipe(recipe)}
+                  onFavouriteButtonClick={isFavorite ? removeFavoriteRecipe : addFavoriteRecipe}
+                  isFavourite={isFavorite}
+                  />
+              )
+            })}
             <button className="view-more-button" onClick={handleViewMoreClick}>
               View More
             </button>
-          </>
+          </div>
         )}
 
         {selectedTab === "favorites" && (
@@ -100,7 +115,8 @@ const App = () => {
               <RecipeCard
                 recipe={recipe}
                 onClick={() => setSelectedRecipe(recipe)}
-                onFavoriteButtonClick={addFavoriteRecipe}
+                onFavouriteButtonClick={removeFavoriteRecipe}
+                isFavourite={true}
               />
             ))}
           </div>

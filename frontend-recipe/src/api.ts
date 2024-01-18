@@ -29,7 +29,7 @@ export const getFavoriteRecipes = async () => {
   const response = await fetch(url);
 
   if (!response) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    throw new Error(`HTTP error!`);
   }
   return await response.json();
 };
@@ -41,6 +41,23 @@ export const addFavoriteRecipe = async (recipe: Recipe) => {
   };
   const response = await fetch(url, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+};
+
+export const removeFavoriteRecipe = async (recipe: Recipe) => {
+  const url = new URL("https://localhost:5000/api/recipes/favorite");
+  const body = {
+    recipeId: recipe.id,
+  };
+  const response = await fetch(url, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
