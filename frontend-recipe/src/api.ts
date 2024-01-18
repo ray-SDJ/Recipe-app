@@ -24,7 +24,7 @@ export const getRecipeSummary = async (recipeId: string) => {
   return response.json();
 };
 
-export const getFavoriteRecipes = async () => {
+export const getFavouriteRecipes = async () => {
   const url = new URL("http://localhost:5000/api/recipes/favorite");
   const response = await fetch(url);
 
@@ -34,7 +34,7 @@ export const getFavoriteRecipes = async () => {
   return await response.json();
 };
 
-export const addFavoriteRecipe = async (recipe: Recipe) => {
+export const addFavouriteRecipe = async (recipe: Recipe) => {
   const url = new URL("http://localhost:5000/api/recipes/favorite");
   const body = {
     recipeId: recipe.id,
@@ -51,7 +51,7 @@ export const addFavoriteRecipe = async (recipe: Recipe) => {
   }
 };
 
-export const removeFavoriteRecipe = async (recipe: Recipe) => {
+export const removeFavouriteRecipe = async (recipe: Recipe) => {
   const url = new URL("https://localhost:5000/api/recipes/favorite");
   const body = {
     recipeId: recipe.id,

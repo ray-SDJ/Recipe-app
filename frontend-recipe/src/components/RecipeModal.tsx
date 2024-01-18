@@ -15,7 +15,7 @@ const RecipeModal = ({recipeId, onClose}: Props) => {
     const fetchRecipeSummary = async() => {
         try {
             const summaryRecipe = await RecipeAPI.getRecipeSummary(recipeId);
-            setRecipeSummary(recipeSummary)
+            setRecipeSummary(summaryRecipe)
         } catch (error) {
             console.log(error);
         }
@@ -24,7 +24,7 @@ const RecipeModal = ({recipeId, onClose}: Props) => {
   }, [recipeId])
   
   if (!recipeSummary) {
-    return null;
+    return <></>;
   }
   return (
     <div>
