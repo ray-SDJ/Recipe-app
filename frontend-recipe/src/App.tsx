@@ -71,14 +71,15 @@ const App = () => {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Recipe App</h1>
-      </header>
-      <div>
-        <div className="tabs">
-          <h1 onClick={() => setSelectedTab("search")}> Recipe Search</h1>
-          <h1 onClick={() => setSelectedTab("favorites")}> Favorites</h1>
+    
+    <div className="app-container">
+      <div className="header">
+        <img src="./public/differentplates.jpg"></img>
+        <div className='title'> My Recipe App</div>
+      </div>
+        <div role="tablist"className="tabs tabs-boxed">
+          <h1 role="tab"className="tab" onClick={() => setSelectedTab("search")}> Recipe Search</h1>
+          <h1 role="tab"className="tab tab-active" onClick={() => setSelectedTab("favorites")}> Favorites</h1>
         </div>
         {selectedTab === "search" && (
           <div>
